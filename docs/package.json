@@ -1,0 +1,21 @@
+{
+  "name": "experiment-ai-sdd-tools-docs",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "AI 编程 SDD 工具实战对比 - 文档站",
+  "scripts": {
+    "docs:collect": "tsx .vitepress/utils/collect-artifacts.ts",
+    "docs:dev": "npm run docs:collect && vitepress dev",
+    "docs:build": "npm run docs:collect && vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "gray-matter": "^4.0.3",
+    "tsx": "^4.19.0",
+    "vitepress": "^1.6.4"
+  },
+  "dependencies": {
+    "medium-zoom": "^1.1.0"
+  }
+}

@@ -55,3 +55,8 @@ tmp/
 
 # Claude Code 本地配置（含个人权限/工作流设置，不要公开）
 .claude/settings.local.json
+
+# VitePress 文档站
+docs/node_modules
+docs/.vitepress/cache
+docs/.vitepress/dist

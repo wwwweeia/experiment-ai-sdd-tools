@@ -1,0 +1,11 @@
+node_modules
+.vitepress/cache
+.vitepress/dist
+
+# collect 脚本产物（由 docs:collect 自动生成，不要提交）
+rounds/r1/
+rounds/r2/
+rounds/r3/
+public/screenshots/
+replicate/index.md
+contribute/index.md

@@ -1,8 +1,12 @@
 # AI 编程"SDD"工具实战对比
 
+[![文档站](https://img.shields.io/badge/📖%20文档站-online-ea580c?style=flat-square)](https://wwwweeia.github.io/experiment-ai-sdd-tools/)
+
 > **同一个需求、同一份基础项目**，用三个 AI 编程辅助工具（Superpowers / Spec-Kit / OpenSpec）各跑一遍，看它们在真实开发场景下到底有什么差异。
 >
 > 这不是一份评测，是一份**亲手跑完三轮之后的体验笔记**。带数据、带截图、带踩坑记录，也带主观感受。
+
+**📖 文档站：[https://wwwweeia.github.io/experiment-ai-sdd-tools/](https://wwwweeia.github.io/experiment-ai-sdd-tools/)**
 
 ---
 
