@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+venv/
+.venv/
+env/
+
+# Node
+node_modules/
+dist/
+dist-ssr/
+*.local
+.cache/
+
+# 数据库（实验产生的本地数据）
+*.db
+*.sqlite
+*.sqlite3
+
+# 前端构建产物
+*.tsbuildinfo
+
+# 测试产出
+playwright-report/
+test-results/
+coverage/
+.coverage
+htmlcov/
+
+# IDE / 编辑器
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# 日志
+*.log
+logs/
+
+# 临时文件
+tmp/
+.tmp/
+
+# Claude Code 本地配置（含个人权限/工作流设置，不要公开）
+.claude/settings.local.json
