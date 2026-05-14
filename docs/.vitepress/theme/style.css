@@ -15,21 +15,74 @@
   --vp-c-brand-soft: rgba(251, 146, 60, 0.16);
 }
 
-/* Hero 文字渐变 */
+/* Hero 宽度：默认 ~560px 对长中文标题太窄 */
+.VPHero {
+  max-width: 100% !important;
+  margin: 0 auto !important;
+  text-align: center;
+}
+.VPHero .container {
+  display: block !important;
+  text-align: center;
+}
+.VPHero .main {
+  width: 100% !important;
+  max-width: 100% !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+.VPHero .heading {
+  max-width: none !important;
+}
 .VPHero .name,
+.VPHero .text,
+.VPHero .tagline {
+  max-width: none !important;
+  white-space: nowrap !important;
+  text-align: center !important;
+  display: flex !important;
+  justify-content: center !important;
+  width: 100%;
+}
+.VPHero .actions {
+  justify-content: center !important;
+}
+
+
+/* Hero 文字渐变 */
+.VPHero .name {
+  background: linear-gradient(120deg, #ea580c 0%, #eab308 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  line-height: 1.2 !important;
+}
+
 .VPHero .text {
   background: linear-gradient(120deg, #ea580c 0%, #eab308 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+  margin-top: 1rem !important;
 }
 
-.dark .VPHero .name,
+.dark .VPHero .name {
+  background: linear-gradient(120deg, #fb923c 0%, #fde047 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
 .dark .VPHero .text {
   background: linear-gradient(120deg, #fb923c 0%, #fde047 100%);
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
+}
+
+/* Hero tagline 间距 */
+.VPHero .tagline {
+  margin-top: 1.2rem !important;
 }
 
 /* 表格首列不换行（数据表更紧凑） */
