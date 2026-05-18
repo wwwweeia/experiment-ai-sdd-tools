@@ -2,7 +2,7 @@
 
 ## Overview
 
-在已有 FastAPI + Vue 3 平台上，为 Agent 实体添加完整的三状态生命周期管理。Phase 1 交付稳定的后端 API（含状态机验证、审计日志），Phase 2 在其上构建前端管理页面。两个阶段之间有硬依赖：前端接口契约在 Phase 1 完成后才确定。
+在已有 FastAPI + Vue 3 平台上，为 Agent 实体添加完整的三状态生命周期管理。Phase 1 交付稳定的后端 API（含状态机验证、审计日志），Phase 2 在其上构建前端管理页面。两个阶段之间有硬依赖：前端接口合约在 Phase 1 完成后才确定。
 
 ## Phases
 
@@ -41,8 +41,8 @@ Decimal phases appear between their surrounding integers in numeric order.
   1. Agent 列表页展示名称、状态标签（颜色区分三种状态）、关联 Model 名称、关联 Prompt 名称，支持按状态筛选和分页导航
   2. 每行按当前状态显示对应操作按钮（DRAFT 显示"激活"；ACTIVE 显示"停用"；INACTIVE 显示"激活"和"删除"），点击后弹出确认对话框，后端返回错误时在页面上展示具体原因
   3. 点击"创建 Agent"打开表单，填写名称（必填）、描述（选填）、从下拉中选择 Model 和 Prompt（懒加载），提交后新 Agent 以 DRAFT 状态出现在列表中
-**Plans**: TBD
-**UI hint**: yes
+**Plans**: 1 plan
+- [ ] 02-01-PLAN.md — Agent 管理前端：API 客户端 + Pinia Store + AgentList 页面（表格、状态筛选、创建表单、状态操作）
 
 ## Progress
 
@@ -52,4 +52,4 @@ Phases execute in numeric order: 1 → 2
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Backend | 4/4 | Complete | 2026-05-18 |
-| 2. Frontend | 0/TBD | Not started | - |
+| 2. Frontend | 0/1 | Not started | - |
