@@ -120,3 +120,221 @@ npx get-shit-done-cc@latest
 - 子 agent 并行执行是 GSD 的核心卖点，主 context 保持在 30-40%
 - 每个执行 task 有独立提交，产出 clean git history
 - 有专门的 verify step（其他工具基本跳过这一环）
+
+<!-- GSD:project-start source:PROJECT.md -->
+## Project
+
+**AI Prompt Lab — Agent 状态管理**
+
+AI Prompt Lab 是一个 AI 智能体管理平台，核心实体为 Model（模型）、Prompt（提示词模板）、Agent（智能体）、Skill（工具能力）。本次目标是在已有 CRUD 基础上，完整实现 Agent 的三状态生命周期管理（DRAFT → ACTIVE → INACTIVE），包括业务规则验证、API 端点、状态变更记录和前端管理页面。
+
+**Core Value:** Agent 能够被安全地激活和停用——激活时确保必要依赖（Model + Prompt）就绪，停用时有完整记录，状态管理对前端透明可操作。
+
+### Constraints
+
+- **Tech Stack**: FastAPI + SQLAlchemy 2.x + SQLite / Vue 3 + Element Plus + Pinia — 不引入新依赖
+- **Code Style**: 遵循 `prompt_service.py` 和 `endpoints.py` 的现有模式，保持一致性
+- **Schema**: Pydantic v2，参考 `schema.py` 已有定义扩展
+- **Test**: 后端 pytest 覆盖业务规则（5 条规则），前端手动验证
+<!-- GSD:project-end -->
+
+<!-- GSD:stack-start source:codebase/STACK.md -->
+## Technology Stack
+
+## Languages
+- Python 3.13.9 - FastAPI backend application
+- JavaScript (ES Module) - Vue 3 SPA application
+- TypeScript 5.8 - E2E testing (Playwright)
+## Runtime & Build
+- Python 3.13.9 (local development)
+- Uvicorn 0.34.0 - ASGI server with `uvicorn[standard]` extras
+- Development: `uvicorn app.main:app --reload`
+- Node.js v22.22.2 (verified)
+- Vite 6.0.0 - Build tool and dev server
+- Dev server: `npm run dev` (runs on http://localhost:5173)
+- Build: `npm run build` (production bundle)
+- Preview: `npm run preview` (serve built assets)
+## Frameworks
+- FastAPI 0.115.6 - Web framework
+- Vue 3.5.0 - SPA framework (Composition API)
+- Vue Router 4.4.0 - Client-side routing
+- Pinia 2.2.0 - State management store
+- Element Plus 2.9.0 - UI component library
+- Playwright 1.52.0 (@playwright/test) - E2E testing framework
+## Key Dependencies
+- SQLAlchemy 2.0.36 - ORM for database operations
+- Pydantic 2.10.4 - Data validation and serialization
+- Axios 1.7.0 - HTTP client
+- Sass/SCSS (sass-embedded 1.80.0) - CSS preprocessing
+- @vitejs/plugin-vue 5.2.0 - Vue 3 Vite integration
+- @types/node 22.0.0 - TypeScript node types (E2E)
+## Configuration
+- Location: `backend/app/core/config.py`
+- `PROJECT_NAME`: "AI Prompt Lab"
+- `VERSION`: "1.0.0"
+- `API_PREFIX`: "/api/v1"
+- `DATABASE_URL`: SQLite at `prompt_lab.db` (root of backend directory)
+- Vite config: `frontend/vite.config.js`
+- Entry point: `frontend/index.html`
+- Mount: `<div id="app"></div>`
+- Proxy: `/api/*` → `http://localhost:8000`
+- Port: 5173
+- Type: SQLite (file-based)
+- Path: `{project_root}/prompt_lab.db`
+- Auto-created on startup via `Base.metadata.create_all(bind=engine)`
+- Configuration: `backend/app/core/database.py`
+- Config: `e2e/playwright.config.ts`
+- Test directory: `e2e/tests/`
+- Test files: `*.spec.ts`
+- Base URL: `http://localhost:5173` (configurable via `E2E_BASE_URL` env var)
+- Headless mode: Enabled by default (configurable via `E2E_HEADLESS` env var)
+- Timeout: 30 seconds per test, 5 seconds per assertion
+- CI configuration: Retry 2 times on CI, single worker
+- CORS: Enabled for localhost:5173 on FastAPI app
+- Health check endpoint: `GET /health` (returns status, service name, version)
+## Package Management
+- Package Manager: pip
+- Lock file: N/A (requirements.txt with pinned versions)
+- Dependency location: `backend/requirements.txt`
+- Package Manager: npm
+- Lock file: `frontend/package-lock.json` (present)
+- Dependency location: `frontend/package.json`
+- Workspace: None (single root)
+- Package Manager: npm
+- Lock file: `e2e/package-lock.json` (present)
+- Dependency location: `e2e/package.json`
+- Separate from frontend dependencies
+## Platform Requirements
+- Python 3.13.9+
+- Node.js v22+ (verified v22.22.2)
+- npm (comes with Node)
+- Bash/shell for running startup scripts
+- Python runtime (FastAPI + Uvicorn)
+- Web server (Nginx/Apache to reverse proxy Uvicorn)
+- Node.js build environment (for frontend build step)
+- SQLite support (included in Python stdlib)
+<!-- GSD:stack-end -->
+
+<!-- GSD:conventions-start source:CONVENTIONS.md -->
+## Conventions
+
+## Code Style
+### Backend (Python)
+- Python with type hints throughout
+- Pydantic v2 schemas using `ConfigDict(from_attributes=True)`
+- SQLAlchemy 2.x with `Mapped[T]` type annotations for all columns
+- FastAPI dependency injection via `Depends(get_db)` for database sessions
+### Frontend (JavaScript/Vue)
+- Vue 3 Composition API with `<script setup>` syntax
+- No TypeScript — plain JavaScript with JSDoc where needed
+- Element Plus UI components
+## Naming Conventions
+### Backend
+- **Files**: snake_case (`model_service.py`, `prompt_service.py`)
+- **Classes**: PascalCase (`ModelService`, `PromptService`, `AgentStatus`)
+- **Functions/methods**: snake_case (`get_all`, `create`, `update_status`)
+- **Database columns**: snake_case (`model_id`, `created_at`)
+- **Enums**: uppercase values (`DRAFT`, `ACTIVE`, `INACTIVE`)
+### Frontend
+- **Components**: PascalCase (`AgentList.vue`, `PromptList.vue`)
+- **Stores**: camelCase (`usePromptStore`, `useAgentStore`)
+- **API modules**: camelCase (`prompts.js`, `agents.js`)
+- **Functions**: camelCase (`fetchPrompts`, `createAgent`)
+- **CSS classes**: kebab-case
+## Patterns
+### Service Layer Pattern (Backend)
+### Unified Response Wrapper
+### Pinia Store Structure
+### API Client Pattern
+### Router → Service → Model Flow
+## Error Handling
+### Backend
+- FastAPI `HTTPException` for HTTP-level errors (404, 422, etc.)
+- Business rule violations returned as `400 Bad Request` with descriptive message
+- No global exception handler — each endpoint handles its own errors
+### Frontend
+- API errors caught in store actions via try/catch
+- `ElMessage.error()` for user-facing error display
+- `ElMessageBox.confirm()` for destructive action confirmation
+<!-- GSD:conventions-end -->
+
+<!-- GSD:architecture-start source:ARCHITECTURE.md -->
+## Architecture
+
+## Pattern
+```
+```
+```
+```
+## Layers
+### Backend
+| Layer | Location | Responsibility |
+|-------|----------|----------------|
+| Entry Point | `app/main.py` | App init, middleware, router registration |
+| Config | `app/core/config.py` | Constants (PROJECT_NAME, API_PREFIX, etc.) |
+| Database | `app/core/database.py` | SQLite engine, SessionLocal, `get_db` dependency |
+| Models | `app/models/entity.py` | SQLAlchemy ORM models (all entities in one file) |
+| Schemas | `app/schemas/schema.py` | Pydantic v2 request/response schemas |
+| Services | `app/services/` | Business logic, DB queries |
+| API | `app/api/v1/endpoints.py` | HTTP handlers (all routers in one file) |
+| Router | `app/api/v1/router.py` | Aggregates routers, registers with prefix `/api/v1` |
+### Frontend
+| Layer | Location | Responsibility |
+|-------|----------|----------------|
+| Views | `src/views/` | Page components, UI logic |
+| Stores | `src/stores/` | Pinia state management |
+| API | `src/api/` | Axios HTTP calls |
+| Router | `src/router/index.js` | Vue Router — client-side navigation |
+| Entry | `src/main.js` | Vue app init, plugin registration |
+## Data Flow
+### Read (list agents example)
+```
+```
+### Write (status update example)
+```
+```
+### Frontend flow
+```
+```
+## Key Abstractions
+### Generic Response Wrapper
+```python
+```
+### Service Constructor Pattern
+```python
+```
+### AgentStatus Enum (State Machine)
+```python
+```
+## Entry Points
+- **Backend**: `uvicorn app.main:app --reload` → `backend/app/main.py`
+- **Frontend**: `npm run dev` → `frontend/src/main.js` → `App.vue`
+- **API docs**: `http://localhost:8000/docs` (FastAPI auto-generated Swagger)
+- **Health check**: `GET /health`
+<!-- GSD:architecture-end -->
+
+<!-- GSD:skills-start source:skills/ -->
+## Project Skills
+
+No project skills found. Add skills to any of: `.claude/skills/`, `.agents/skills/`, `.cursor/skills/`, `.github/skills/`, or `.codex/skills/` with a `SKILL.md` index file.
+<!-- GSD:skills-end -->
+
+<!-- GSD:workflow-start source:GSD defaults -->
+## GSD Workflow Enforcement
+
+Before using Edit, Write, or other file-changing tools, start work through a GSD command so planning artifacts and execution context stay in sync.
+
+Use these entry points:
+- `/gsd-quick` for small fixes, doc updates, and ad-hoc tasks
+- `/gsd-debug` for investigation and bug fixing
+- `/gsd-execute-phase` for planned phase work
+
+Do not make direct repo edits outside a GSD workflow unless the user explicitly asks to bypass it.
+<!-- GSD:workflow-end -->
+
+<!-- GSD:profile-start -->
+## Developer Profile
+
+> Profile not yet configured. Run `/gsd-profile-user` to generate your developer profile.
+> This section is managed by `generate-claude-profile` -- do not edit manually.
+<!-- GSD:profile-end -->
