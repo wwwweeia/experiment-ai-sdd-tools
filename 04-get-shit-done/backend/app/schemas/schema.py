@@ -1,6 +1,7 @@
 from datetime import datetime
 from typing import Any, Generic, TypeVar
 from pydantic import BaseModel, ConfigDict
+from app.models.entity import AgentStatus
 
 T = TypeVar("T")
 
@@ -63,7 +64,7 @@ class AgentCreate(BaseModel):
     description: str | None = None
     model_id: int | None = None
     prompt_id: int | None = None
-    status: str = "draft"
+    # status intentionally omitted — creation always yields DRAFT (enforced by ORM default + service)
 
 
 class AgentRead(BaseModel):
@@ -72,8 +73,25 @@ class AgentRead(BaseModel):
     description: str | None
     model_id: int | None
     prompt_id: int | None
-    status: str
+    status: AgentStatus
     created_at: datetime
+    model_name: str | None = None
+    prompt_name: str | None = None
+
+    model_config = ConfigDict(from_attributes=True, use_enum_values=True)
+
+
+class StatusChangeRequest(BaseModel):
+    status: AgentStatus
+    reason: str | None = None
+
+
+class StatusHistoryRead(BaseModel):
+    id: int
+    from_status: AgentStatus | None
+    to_status: AgentStatus
+    reason: str | None
+    changed_at: datetime
 
     model_config = ConfigDict(from_attributes=True)
 
