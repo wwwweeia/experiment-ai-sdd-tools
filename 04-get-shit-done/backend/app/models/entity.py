@@ -56,6 +56,9 @@ class Agent(Base):
     model: Mapped["Model | None"] = relationship(back_populates="agents")
     prompt: Mapped["Prompt | None"] = relationship()
     skills: Mapped[list["Skill"]] = relationship(back_populates="agent")
+    status_history: Mapped[list["AgentStatusHistory"]] = relationship(
+        back_populates="agent", cascade="all, delete-orphan", order_by="AgentStatusHistory.changed_at"
+    )
 
 
 class Skill(Base):
@@ -70,3 +73,23 @@ class Skill(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now)
 
     agent: Mapped["Agent | None"] = relationship(back_populates="skills")
+
+
+class AgentStatusHistory(Base):
+    """Agent 状态变更审计日志（append-only — 永不更新，只新增）"""
+    __tablename__ = "agent_status_history"
+
+    id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
+    agent_id: Mapped[int] = mapped_column(
+        ForeignKey("agents.id", ondelete="CASCADE"), nullable=False, comment="所属 Agent"
+    )
+    from_status: Mapped[AgentStatus | None] = mapped_column(
+        Enum(AgentStatus), nullable=True, comment="变更前状态（首次创建为 NULL）"
+    )
+    to_status: Mapped[AgentStatus] = mapped_column(
+        Enum(AgentStatus), nullable=False, comment="变更后状态"
+    )
+    reason: Mapped[str | None] = mapped_column(String(500), comment="变更原因（可选）")
+    changed_at: Mapped[datetime] = mapped_column(DateTime, default=datetime.now, nullable=False, comment="变更时间")
+
+    agent: Mapped["Agent"] = relationship(back_populates="status_history")
