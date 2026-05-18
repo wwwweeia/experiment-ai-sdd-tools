@@ -27,7 +27,11 @@ Decimal phases appear between their surrounding integers in numeric order.
   3. PATCH /api/v1/agents/{id}/status 执行合法转换（DRAFT→ACTIVE、ACTIVE→INACTIVE、INACTIVE→ACTIVE）时返回 200；激活时若 model_id 或 prompt_id 不存在则返回 422 含具体原因；非法转换（如 ACTIVE→DRAFT）返回 409
   4. DELETE /api/v1/agents/{id} 对 DRAFT/INACTIVE Agent 成功删除；对 ACTIVE Agent 返回 409 错误
   5. 每次合法的状态切换后，AgentStatusHistory 表中自动写入一条记录，含 from_status、to_status、changed_at
-**Plans**: TBD
+**Plans**: 4 plans
+- [ ] 01-01-PLAN.md — 数据层：AgentStatusHistory ORM 表 + Schema 修整（AgentCreate 去 status、AgentRead 加 enum 与 relation 名）
+- [ ] 01-02-PLAN.md — 服务层：AgentService 状态机 + 双异常 + 原子 history 写入（VALID_TRANSITIONS、selectinload）
+- [ ] 01-03-PLAN.md — HTTP 层：agents_router 5 个端点 + 409/422 异常映射 + router.py 注册
+- [ ] 01-04-PLAN.md — 测试层：pytest 脚手架 + AgentService 单测 + API 集成测试（覆盖全部 6 个 REQ-ID）
 
 ### Phase 2: Frontend
 **Goal**: 用户可以通过浏览器页面查看所有 Agent、创建新 Agent、并通过按钮操作切换 Agent 状态
@@ -47,5 +51,5 @@ Phases execute in numeric order: 1 → 2
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Backend | 0/TBD | Not started | - |
+| 1. Backend | 0/4 | Planned | - |
 | 2. Frontend | 0/TBD | Not started | - |
