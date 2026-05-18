@@ -13,7 +13,7 @@
 Decimal phases appear between their surrounding integers in numeric order.
 
 - [x] **Phase 1: Backend** - Agent CRUD API + 状态机 + 审计日志（6 个需求，后端完整交付）
-- [ ] **Phase 2: Frontend** - Agent 列表页 + 状态操作 + 创建表单（3 个需求，前端完整交付）
+- [x] **Phase 2: Frontend** - Agent 列表页 + 状态操作 + 创建表单（3 个需求，前端完整交付） (completed 2026-05-18)
 
 ## Phase Details
 
@@ -42,7 +42,7 @@ Decimal phases appear between their surrounding integers in numeric order.
   2. 每行按当前状态显示对应操作按钮（DRAFT 显示"激活"；ACTIVE 显示"停用"；INACTIVE 显示"激活"和"删除"），点击后弹出确认对话框，后端返回错误时在页面上展示具体原因
   3. 点击"创建 Agent"打开表单，填写名称（必填）、描述（选填）、从下拉中选择 Model 和 Prompt（懒加载），提交后新 Agent 以 DRAFT 状态出现在列表中
 **Plans**: 1 plan
-- [ ] 02-01-PLAN.md — Agent 管理前端：API 客户端 + Pinia Store + AgentList 页面（表格、状态筛选、创建表单、状态操作）
+- [x] 02-01-PLAN.md — Agent 管理前端：API 客户端 + Pinia Store + AgentList 页面（表格、状态筛选、创建表单、状态操作）
 
 ## Progress
 
@@ -52,4 +52,4 @@ Phases execute in numeric order: 1 → 2
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
 | 1. Backend | 4/4 | Complete | 2026-05-18 |
-| 2. Frontend | 0/1 | Not started | - |
+| 2. Frontend | 1/1 | Complete   | 2026-05-18 |
