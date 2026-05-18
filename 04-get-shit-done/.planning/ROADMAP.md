@@ -12,7 +12,7 @@
 
 Decimal phases appear between their surrounding integers in numeric order.
 
-- [ ] **Phase 1: Backend** - Agent CRUD API + 状态机 + 审计日志（6 个需求，后端完整交付）
+- [x] **Phase 1: Backend** - Agent CRUD API + 状态机 + 审计日志（6 个需求，后端完整交付）
 - [ ] **Phase 2: Frontend** - Agent 列表页 + 状态操作 + 创建表单（3 个需求，前端完整交付）
 
 ## Phase Details
@@ -28,10 +28,10 @@ Decimal phases appear between their surrounding integers in numeric order.
   4. DELETE /api/v1/agents/{id} 对 DRAFT/INACTIVE Agent 成功删除；对 ACTIVE Agent 返回 409 错误
   5. 每次合法的状态切换后，AgentStatusHistory 表中自动写入一条记录，含 from_status、to_status、changed_at
 **Plans**: 4 plans
-- [ ] 01-01-PLAN.md — 数据层：AgentStatusHistory ORM 表 + Schema 修整（AgentCreate 去 status、AgentRead 加 enum 与 relation 名）
-- [ ] 01-02-PLAN.md — 服务层：AgentService 状态机 + 双异常 + 原子 history 写入（VALID_TRANSITIONS、selectinload）
-- [ ] 01-03-PLAN.md — HTTP 层：agents_router 5 个端点 + 409/422 异常映射 + router.py 注册
-- [ ] 01-04-PLAN.md — 测试层：pytest 脚手架 + AgentService 单测 + API 集成测试（覆盖全部 6 个 REQ-ID）
+- [x] 01-01-PLAN.md — 数据层：AgentStatusHistory ORM 表 + Schema 修整（AgentCreate 去 status、AgentRead 加 enum 与 relation 名）
+- [x] 01-02-PLAN.md — 服务层：AgentService 状态机 + 双异常 + 原子 history 写入（VALID_TRANSITIONS、selectinload）
+- [x] 01-03-PLAN.md — HTTP 层：agents_router 5 个端点 + 409/422 异常映射 + router.py 注册
+- [x] 01-04-PLAN.md — 测试层：pytest 脚手架 + AgentService 单测 + API 集成测试（覆盖全部 6 个 REQ-ID）
 
 ### Phase 2: Frontend
 **Goal**: 用户可以通过浏览器页面查看所有 Agent、创建新 Agent、并通过按钮操作切换 Agent 状态
@@ -51,5 +51,5 @@ Phases execute in numeric order: 1 → 2
 
 | Phase | Plans Complete | Status | Completed |
 |-------|----------------|--------|-----------|
-| 1. Backend | 0/4 | Planned | - |
+| 1. Backend | 4/4 | Complete | 2026-05-18 |
 | 2. Frontend | 0/TBD | Not started | - |
