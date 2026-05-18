@@ -37,13 +37,13 @@ Declared values (all multiples of 4):
 | xs | 4px | Tag gaps (`gap: 4px`), icon-to-text gap |
 | sm | 8px | Compact intra-element spacing (button icon gap, form item gap) |
 | md | 16px | Default element spacing, search-area inner padding (top/bottom) |
-| lg | 20px | Page outer padding (`padding: 20px` — matches existing PromptList pattern) |
-| xl | 24px | Logo right margin, gutter between el-row columns |
-| 2xl | 32px | — (reserved, not used in this phase) |
-| 3xl | 48px | — (reserved, not used in this phase) |
+| lg | 24px | Page outer padding, logo right margin, gutter between el-row columns |
+| xl | 32px | — (reserved, not used in this phase) |
+| 2xl | 48px | — (reserved, not used in this phase) |
+| 3xl | 64px | — (reserved, not used in this phase) |
 
-Exceptions:
-- `lg` uses 20px instead of 24px to match existing `.prompt-list { padding: 20px }` — source: PromptList.vue
+**Legacy codebase value (not part of this token scale):**
+- `PromptList.vue` uses hardcoded `padding: 20px`. This predates the spacing scale. AgentList will use `lg = 24px` per the declared scale above.
 
 ---
 
@@ -56,9 +56,8 @@ All sizes use Element Plus default font stack (`system-ui, -apple-system, sans-s
 | Body | 14px | 400 (regular) | 1.5 | Table cell text, form labels, descriptions |
 | Label | 13px | 400 (regular) | 1.4 | Footer count text (`color: #909399`), secondary metadata |
 | Heading | 20px | 600 (semibold) | 1.2 | Page section headings (h2-level) |
-| Display | 36px | 700 (bold) | 1.2 | Home page hero `h1` only — not used in AgentList |
 
-> Note: Only 2 weights used in AgentList: 400 (body/label) and 600 (heading). Display at 700 exists on Home page only and is out of scope for this phase.
+> Out of scope for this phase: Home page hero `h1` uses 36px / 700 (bold). If a future phase needs a display type scale, add a Display row then.
 
 ---
 
@@ -171,11 +170,17 @@ All state transitions and deletes require `ElMessageBox.confirm()` before API ca
 | Form field — model | 关联模型 (placeholder: 请选择模型) |
 | Form field — prompt | 关联提示词 (placeholder: 请选择提示词) |
 | Submit button | 确认创建 |
-| Cancel button | 取消 |
+| Cancel button | 暂不创建 |
 | Table column — status | 状态 |
 | Table column — model | 关联模型 |
 | Table column — prompt | 关联提示词 |
 | Table column — actions | 操作 |
+
+---
+
+## Visual Focal Point
+
+Primary focal point: "创建 Agent" CTA button positioned in the search/action bar at the top of the AgentList page. This is the only `type="primary"` element in the page chrome, drawing the eye as the entry point for the core workflow.
 
 ---
 
@@ -194,7 +199,7 @@ All state transitions and deletes require `ElMessageBox.confirm()` before API ca
 
 ### Follow Existing Patterns (source: codebase scan)
 
-1. **View structure**: Match `PromptList.vue` — `.{name}-list` wrapper, `padding: 20px`, `background: #fff`, `min-height: calc(100vh - 60px)`
+1. **View structure**: Match `PromptList.vue` — `.{name}-list` wrapper, `padding: 24px` (per spacing scale `lg`), `background: #fff`, `min-height: calc(100vh - 60px)`
 2. **Store pattern**: Match `stores/prompt.js` — `defineStore` with Setup Store syntax, `ref()` state, `computed()` getters, async actions with `loading` flag
 3. **API client pattern**: Match `api/prompts.js` — flat named exports wrapping `api.get/post/patch/delete`
 4. **Error handling**: `ElMessage.error()` is already globally handled in `api/index.js` interceptor — store actions only need `try/catch` for state cleanup
