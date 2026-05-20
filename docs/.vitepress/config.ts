@@ -62,6 +62,7 @@ export default defineConfig({
           { text: 'Round 1: Superpowers', link: '/rounds/r1/' },
           { text: 'Round 2: Spec-Kit', link: '/rounds/r2/' },
           { text: 'Round 3: OpenSpec', link: '/rounds/r3/' },
+          { text: 'Round 4: GSD', link: '/rounds/r4/' },
         ],
       },
       { text: '复现', link: '/replicate/' },
@@ -102,6 +103,7 @@ export default defineConfig({
             { text: 'Round 1: Superpowers', link: '/rounds/r1/' },
             { text: 'Round 2: Spec-Kit', link: '/rounds/r2/' },
             { text: 'Round 3: OpenSpec', link: '/rounds/r3/' },
+            { text: 'Round 4: GSD', link: '/rounds/r4/' },
           ],
         },
       ],
@@ -163,6 +165,27 @@ export default defineConfig({
             { text: 'Spec: agent-crud', link: '/rounds/r3/artifacts/specs/agent-crud/spec' },
             { text: 'Spec: agent-management-ui', link: '/rounds/r3/artifacts/specs/agent-management-ui/spec' },
             { text: 'Spec: agent-status-management', link: '/rounds/r3/artifacts/specs/agent-status-management/spec' },
+          ],
+        },
+      ],
+      '/rounds/r4/': [
+        {
+          text: 'Round 4: GSD',
+          items: [
+            { text: '观察笔记（人评）', link: '/rounds/r4/' },
+            { text: '过程截图', link: '/rounds/r4/gallery' },
+          ],
+        },
+        {
+          text: '工具制品',
+          items: [
+            { text: 'PROJECT.md（项目范围与决策）', link: '/rounds/r4/artifacts/project' },
+            { text: 'REQUIREMENTS.md', link: '/rounds/r4/artifacts/requirements' },
+            { text: 'ROADMAP.md', link: '/rounds/r4/artifacts/roadmap' },
+            { text: 'Phase 1 Research', link: '/rounds/r4/artifacts/phase1-research' },
+            { text: 'Phase 1 Verification', link: '/rounds/r4/artifacts/phase1-verification' },
+            { text: 'Phase 2 UI-SPEC', link: '/rounds/r4/artifacts/phase2-ui-spec' },
+            { text: 'Phase 2 Verification', link: '/rounds/r4/artifacts/phase2-verification' },
           ],
         },
       ],

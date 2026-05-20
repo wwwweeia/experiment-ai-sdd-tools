@@ -1,6 +1,6 @@
 # 状态机实现对比
 
-> 同一功能最核心的差异。三个工具给出了三种完全不同的状态机实现。
+> 同一功能最核心的差异。四个工具给出了四种状态机实现（R3 和 R4 同为映射表，但错误语义处理不同）。
 
 ## Round 1（Superpowers）— 元组集合
 
@@ -60,14 +60,34 @@ if target_status not in self.TRANSITIONS.get(current, set()):
 - 优点：声明式、O(1) 查找、易扩展、错误消息自动包含允许的目标状态
 - **最佳设计**：三个版本中最优雅的状态机实现
 
+## Round 4（GSD）— 映射表（列表值）+ 独立异常类
+
+```python
+VALID_TRANSITIONS: dict[AgentStatus, list[AgentStatus]] = {
+    AgentStatus.DRAFT:    [AgentStatus.ACTIVE],
+    AgentStatus.ACTIVE:   [AgentStatus.INACTIVE],
+    AgentStatus.INACTIVE: [AgentStatus.ACTIVE],
+}
+
+# 校验：列表查找 + 双异常路径
+allowed = VALID_TRANSITIONS.get(old_status, [])
+if data.status not in allowed:
+    raise InvalidTransitionError(old_status, data.status)  # → 409
+if data.status == AgentStatus.ACTIVE:
+    self._assert_activation_ready(agent)                    # → 422
+```
+
+- 结构同 Round 3，但明确区分了"非法转换（409 Conflict）"和"激活前置失败（422 Unprocessable）"两种错误语义
+- 独立异常类 `InvalidTransitionError` / `ActivationNotReadyError`，API 层精确映射 HTTP 状态码
+
 ## 评判
 
-**Round 3 > Round 1 > Round 2**。映射表在可读性、可扩展性和错误信息质量上全面胜出。
+**Round 3 ≈ Round 4 > Round 1 > Round 2**。GSD 和 OpenSpec 都用了映射表，GSD 额外做了异常语义分离（更工程化），OpenSpec 的错误收集设计更用户友好。
 
-| 维度 | R1 元组集合 | R2 if/elif | R3 映射表 |
-|------|------------|-----------|----------|
-| 可读性 | 中 | 低（逻辑分散） | **高**（声明式） |
-| 可扩展性 | 中（加元组） | 低（改多处） | **高**（加 key 即可） |
-| 查找复杂度 | O(n) | O(条件数) | **O(1)** |
-| 错误信息质量 | 中 | 中 | **高**（自动列允许目标） |
-| 与 Web 框架耦合 | 高（抛 HTTPException） | 低（抛 ValueError） | 低（返回 tuple） |
+| 维度 | R1 元组集合 | R2 if/elif | R3 映射表 | R4 映射表+独立异常 |
+|------|------------|-----------|----------|-----------------|
+| 可读性 | 中 | 低（逻辑分散） | **高**（声明式） | **高**（声明式） |
+| 可扩展性 | 中（加元组） | 低（改多处） | **高**（加 key 即可） | **高**（加 key 即可） |
+| 查找复杂度 | O(n) | O(条件数) | **O(1)** | **O(1)** |
+| 错误信息质量 | 中 | 中 | **高**（自动列允许目标） | **高**（同R3）+ 错误语义精确 |
+| 与 Web 框架耦合 | 高（抛 HTTPException） | 低（抛 ValueError） | 低（返回 tuple） | 低（独立异常类） |

@@ -12,3 +12,4 @@
 | Round 1 | Superpowers | [→ 进入](/rounds/r1/) |
 | Round 2 | Spec-Kit | [→ 进入](/rounds/r2/) |
 | Round 3 | OpenSpec | [→ 进入](/rounds/r3/) |
+| Round 4 | GSD（get-shit-done-cc） | [→ 进入](/rounds/r4/) |

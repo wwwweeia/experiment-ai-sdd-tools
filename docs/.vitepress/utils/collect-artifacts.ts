@@ -33,7 +33,7 @@ interface ImageRule {
 }
 
 interface GalleryRule {
-  round: 'r1' | 'r2' | 'r3'
+  round: 'r1' | 'r2' | 'r3' | 'r4'
   imagesDir: string
   target: string
   title: string
@@ -156,6 +156,40 @@ const MD_RULES: MdRule[] = [
     imagePrefix: '/screenshots/r3/',
   },
 
+  // ── Round 4: GSD ──
+  {
+    source: 'notes/round4-gsd.md',
+    target: 'rounds/r4/index.md',
+  },
+  {
+    source: '04-get-shit-done/.planning/PROJECT.md',
+    target: 'rounds/r4/artifacts/project.md',
+  },
+  {
+    source: '04-get-shit-done/.planning/REQUIREMENTS.md',
+    target: 'rounds/r4/artifacts/requirements.md',
+  },
+  {
+    source: '04-get-shit-done/.planning/ROADMAP.md',
+    target: 'rounds/r4/artifacts/roadmap.md',
+  },
+  {
+    source: '04-get-shit-done/.planning/phases/01-backend/01-RESEARCH.md',
+    target: 'rounds/r4/artifacts/phase1-research.md',
+  },
+  {
+    source: '04-get-shit-done/.planning/phases/01-backend/01-VERIFICATION.md',
+    target: 'rounds/r4/artifacts/phase1-verification.md',
+  },
+  {
+    source: '04-get-shit-done/.planning/phases/02-frontend/02-UI-SPEC.md',
+    target: 'rounds/r4/artifacts/phase2-ui-spec.md',
+  },
+  {
+    source: '04-get-shit-done/.planning/phases/02-frontend/02-VERIFICATION.md',
+    target: 'rounds/r4/artifacts/phase2-verification.md',
+  },
+
   // ── 共享：复现 + 贡献 ──
   { source: 'docs/HOW-TO-REPLICATE.md', target: 'replicate/index.md' },
   { source: 'CONTRIBUTING.md', target: 'contribute/index.md' },
@@ -194,6 +228,12 @@ const GALLERY_RULES: GalleryRule[] = [
     imagesDir: '03-openspec/openspec/changes/archive/2026-05-13-agent-activation/images',
     target: 'rounds/r3/gallery.md',
     title: 'Round 3: OpenSpec 过程截图',
+  },
+  {
+    round: 'r4',
+    imagesDir: '04-get-shit-done/.planning/phases',
+    target: 'rounds/r4/gallery.md',
+    title: 'Round 4: GSD 过程截图',
   },
 ]
 

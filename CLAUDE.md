@@ -19,30 +19,34 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## 目录结构
 
 ```
-base/              # 干净的基础项目（实验起点，不要修改）
-01-superpowers/    # Round 1: Superpowers — 已完成
-02-speckit/        # Round 2: Spec-Kit — 已完成
-03-openspec/       # Round 3: OpenSpec — 已完成
-04-tool-tbd/       # Round 4: 待定（从 base 复制的干净副本）
-05-tool-tbd/       # Round 5: 待定
-06-tool-tbd/       # Round 6: 待定
-notes/             # 实验笔记
+base/                  # 干净的基础项目（实验起点，不要修改）
+01-superpowers/        # Round 1: Superpowers — 已完成
+02-speckit/            # Round 2: Spec-Kit — 已完成
+03-openspec/           # Round 3: OpenSpec — 已完成
+04-get-shit-done/      # Round 4: get-shit-done (gsd-build/get-shit-done) — 待跑
+05-gsd-2/              # Round 5: GSD-2 (gsd-build/gsd-2) — 待跑（独立 CLI，非 Claude Code 插件）
+06-tool-tbd/           # Round 6: 待定
+notes/                 # 实验笔记
 ├── round1-superpowers.md   # Round 1 观察笔记
 ├── round2-speckit.md       # Round 2 观察笔记
 ├── round3-openspec.md      # Round 3 观察笔记
-├── comparison.md           # 前三轮对比报告
+├── comparison.md           # 对比报告（前三轮已写，待补 R4/R5）
 └── post-round-prompt.md    # 每轮复盘用的提示词模板
 PLAN.md            # 实验计划
 requirement.md     # 共用需求文档
 ```
 
-## 已完成的实验
+## 已完成/计划中的实验
 
 | 轮次 | 工具 | 耗时 | Context | 评分 | 关键特征 |
 |------|------|------|---------|------|---------|
 | R1 | Superpowers | 1h 4m | 96.1k (48%) | 5/10 | 流程严谨（brainstorm→plan→subagent）、19 个测试、11 次提交，但前端功能缺失（无创建关联、无删除） |
 | R2 | Spec-Kit | 44m | 123k (61%) | 8/10 | 文档驱动 5 阶段、功能最完整（有 is_active、时间戳），但有死代码、AI 自行降级需求 |
 | R3 | OpenSpec | 24m | 91.9k (46%) | 8/10 | 最快、最省 token、状态机设计最好（TRANSITIONS 映射表）、joinedload 优化，但 Superpowers 全程未触发 |
+| R4 | get-shit-done | — | — | — | Claude Code 插件；子 agent 并行执行；62k stars；安装：`npx get-shit-done-cc@latest` |
+| R5 | GSD-2 | — | — | — | **独立 CLI**（非 Claude Code 插件）；有 TUI/SQLite/worktree；安装：`npm i -g gsd-pi@latest` |
+
+> **R4 vs R5 架构差异**：R4（get-shit-done）是 Claude Code 的 slash command 框架（同类于前三轮），R5（GSD-2）是完全不同的独立 agent 系统，替代 Claude Code 本身作为 runner。
 
 ## 新一轮实验的操作流程
 

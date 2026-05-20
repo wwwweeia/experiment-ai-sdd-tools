@@ -168,6 +168,74 @@
 
 ---
 
+### 第 4 轮：Get Shit Done（04-get-shit-done/）
+
+**启动**：`cd ~/Documents/idea_work/experiment-ai-sdd-tools/04-get-shit-done && claude`
+
+**目标**：体验"子 agent 并行执行 + 主 context 保活"的重型自动化工具在现有 codebase 上加功能的表现。
+
+**工具安装**（第一次进入时执行）：
+
+```bash
+# 在 04-get-shit-done/ 目录内
+npx get-shit-done-cc@latest
+# runtime → Claude Code，scope → local
+```
+
+**步骤**：
+
+1. 安装完成后确认 `.claude/commands/gsd-*.md` 已生成
+2. 先跑 `/gsd-map-codebase` 建立现有代码的上下文理解
+3. 发送 `requirement.md` 内容，让工具自己决定用 `/gsd-new-project` 还是直接进入 plan 阶段
+4. 跟随 GSD 的 discuss → plan → execute → verify 流程
+5. 记录每个 phase 的耗时和 token
+
+**观察记录**：
+
+- `gsd-map-codebase` 对现有 FastAPI+Vue 项目的理解是否准确？
+- 子 agent 并行执行是否真实发生？主 context 是否保持低位？
+- verify step 是否有效（其他工具基本跳过这步）？
+- `.planning/` 下的制品质量如何？与 Spec-Kit/OpenSpec 的文档对比？
+- 每个 task 一个提交的 git history 是否干净？
+- GSD 是否发现需求中的歧义（类比 Superpowers 的 brainstorming）？
+
+**关注点**：这是同类工具（Claude Code 插件）中体量最大的（62k stars），重点测试它的"子 agent 架构"是否真的比前三轮的线性执行更好。
+
+---
+
+### 第 5 轮：GSD-2（05-gsd-2/）
+
+**启动**：本轮**不用 `claude`**，用 `gsd` CLI 直接运行（参见 `05-gsd-2/CLAUDE.md`）
+
+**目标**：体验"完全独立 Agent 系统"替代 Claude Code 的工作方式，测试其自主编排能力的边界。
+
+**工具安装**（全局，只需执行一次）：
+
+```bash
+npm install -g gsd-pi@latest
+```
+
+**步骤**：
+
+1. 进入 `05-gsd-2/` 目录，运行 `gsd init` 初始化项目
+2. 把 `requirement.md` 作为第一个 milestone 描述输入
+3. 尝试 `gsd auto` 完全自主模式，观察它是否能无干预跑完
+4. 如果卡住，用 `gsd doctor` 诊断，必要时手工干预
+5. 记录人工干预次数和原因
+
+**观察记录**：
+
+- `gsd init` 对现有 codebase 的初始分析质量如何？
+- `gsd auto` 的自主程度：真的能"走开，回来看结果"吗？
+- worktree 隔离是否有实际价值？合并时有没有冲突？
+- 与前四轮的根本差异：没有 Claude Code session 的约束，context 管理是否更好？
+- DB 驱动的跨 session 记忆（Decisions/Knowledge）是否在实验中体现？
+- 出错时的恢复能力（gsd 有 retry/recovery 机制）是否比 Claude Code 强？
+
+**关注点**：这是架构上最不同的工具。重点关注"standalone CLI vs Claude Code 插件"的范式差异，以及完全自主模式的实际可靠性。
+
+---
+
 ## 阶段 3：复盘与产出
 
 ### 对比维度

@@ -1,6 +1,0 @@
-node_modules/
-.ts-out/
-.evidence/
-test-results/
-playwright-report/
-blob-report/
