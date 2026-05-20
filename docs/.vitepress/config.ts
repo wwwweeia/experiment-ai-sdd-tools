@@ -65,6 +65,7 @@ export default defineConfig({
           { text: 'Round 4: GSD', link: '/rounds/r4/' },
         ],
       },
+      { text: '生态', link: '/landscape/' },
       { text: '复现', link: '/replicate/' },
       { text: '贡献', link: '/contribute/' },
       { text: 'GitHub', link: 'https://github.com/wwwweeia/experiment-ai-sdd-tools' },
@@ -187,6 +188,12 @@ export default defineConfig({
             { text: 'Phase 2 UI-SPEC', link: '/rounds/r4/artifacts/phase2-ui-spec' },
             { text: 'Phase 2 Verification', link: '/rounds/r4/artifacts/phase2-verification' },
           ],
+        },
+      ],
+      '/landscape/': [
+        {
+          text: '生态扫描',
+          items: [{ text: '多 Agent 编排平台', link: '/landscape/' }],
         },
       ],
       '/replicate/': [
