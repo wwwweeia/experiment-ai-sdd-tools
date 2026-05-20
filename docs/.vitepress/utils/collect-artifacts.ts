@@ -208,6 +208,10 @@ const IMAGE_RULES: ImageRule[] = [
     source: '03-openspec/openspec/changes/archive/2026-05-13-agent-activation/images',
     target: 'public/screenshots/r3',
   },
+  {
+    source: '04-get-shit-done/.planning/images',
+    target: 'public/screenshots/r4',
+  },
 ]
 
 const GALLERY_RULES: GalleryRule[] = [
@@ -231,7 +235,7 @@ const GALLERY_RULES: GalleryRule[] = [
   },
   {
     round: 'r4',
-    imagesDir: '04-get-shit-done/.planning/phases',
+    imagesDir: '04-get-shit-done/.planning/images',
     target: 'rounds/r4/gallery.md',
     title: 'Round 4: GSD 过程截图',
   },
