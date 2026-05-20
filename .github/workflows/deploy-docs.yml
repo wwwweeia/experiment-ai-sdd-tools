@@ -9,6 +9,7 @@ on:
       - '01-superpowers/docs/**'
       - '02-speckit/specs/**'
       - '03-openspec/openspec/changes/archive/**'
+      - '04-get-shit-done/.planning/**'
       - 'CONTRIBUTING.md'
       - 'README.md'
       - '.github/workflows/deploy-docs.yml'
